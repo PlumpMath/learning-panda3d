@@ -1,0 +1,2 @@
+g++ -c window.cpp -o window.o -O2 -I /usr/include/python2.7/ -I/usr/include/eigen3 -I /usr/include/panda3d/
+g++ window.o -o window -L /usr/lib/x86_64-linux-gnu/panda3d/ -lp3framework -lpanda -lpandafx -lpandaexpress -lp3dtoolconfig -lp3dtool -lp3pystub -lp3direct
