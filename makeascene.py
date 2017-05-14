@@ -20,7 +20,7 @@ class MyApp(ShowBase):
         self.scene.reparentTo(self.render)
         # Apply scale and position transforms on the model.
         self.scene.setScale(0.25, 0.25, 0.25)
-        self.scene.setPos(-8, 42, 0)
+        self.scene.setPos(-8, 42, -40)
 
         #add spin camera task to task manager
         self.taskMgr.add(self.spinCamera, "SpinCameraTask")
@@ -52,7 +52,7 @@ class MyApp(ShowBase):
         angleDegrees = task.time * 6.0
         angleRadians = angleDegrees * (pi / 180.0)
         self.camera.setPos(20 * sin(angleRadians), -20.0 * cos(angleRadians), 3)
-        self.camera.setHpr(angleDegrees, 0, 0)
+        self.camera.setHpr(angleDegrees, -50, 0)
         return Task.cont
 
 app = MyApp()
