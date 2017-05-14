@@ -3,11 +3,16 @@ from math import pi, sin, cos
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
+from direct.interval.IntervalGlobal import Sequence
+from panda3d.core import Point3
 
 class MyApp(ShowBase):
 
     def __init__(self):
         ShowBase.__init__(self)
+
+        #disable mouse controls
+        self.disableMouse()
 
         # Load the environment model.
         self.scene = self.loader.loadModel("models/environment")
@@ -26,6 +31,20 @@ class MyApp(ShowBase):
         self.pandaActor.reparentTo(self.render)
         #loop the animation
         self.pandaActor.loop("walk")
+
+        #create 4 intervals for the panda to walk back and forth
+        pandaPosInterval1 = self.pandaActor.posInterval(13, Point3(0, -10, 0), startPos=Point3(0, -10, 0))
+        pandaPosInterval2 = self.pandaActor.posInterval(13, Point3(0, 10, 0), startPos=Point3(0,0,0))
+        pandaHprInterval1 = self.pandaActor.hprInterval(3, Point3(180, 0, 0), startHpr=Point3(0,0,0))
+        pandaHprInterval2 = self.pandaActor.hprInterval(3, Point3(0,0,0), startHpr=Point3(180,0,0))
+
+        #create and play the sequence coordinating the intervals
+        self.pandaPace = Sequence(pandaPosInterval1,
+                                    pandaHprInterval1,
+                                    pandaPosInterval2,
+                                    pandaHprInterval2,
+                                    name="pandaPace")
+        self.pandaPace.loop()
 
 
     #this is how we spin the camera
